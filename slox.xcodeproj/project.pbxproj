@@ -20,6 +20,7 @@
 
 /* Begin PBXFileReference section */
 		0CF6BEC13051D4E900872C93 /* slox */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = slox; sourceTree = BUILT_PRODUCTS_DIR; };
+		0CF6BEE63053BAEC00872C93 /* slox-testing.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "slox-testing.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -28,10 +29,22 @@
 			path = slox;
 			sourceTree = "<group>";
 		};
+		0CF6BEE73053BAEC00872C93 /* slox-testing */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "slox-testing";
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		0CF6BEBE3051D4E900872C93 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0CF6BEE33053BAEC00872C93 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -45,6 +58,7 @@
 			isa = PBXGroup;
 			children = (
 				0CF6BEC33051D4E900872C93 /* slox */,
+				0CF6BEE73053BAEC00872C93 /* slox-testing */,
 				0CF6BEC23051D4E900872C93 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -53,6 +67,7 @@
 			isa = PBXGroup;
 			children = (
 				0CF6BEC13051D4E900872C93 /* slox */,
+				0CF6BEE63053BAEC00872C93 /* slox-testing.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -82,6 +97,28 @@
 			productReference = 0CF6BEC13051D4E900872C93 /* slox */;
 			productType = "com.apple.product-type.tool";
 		};
+		0CF6BEE53053BAEC00872C93 /* slox-testing */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0CF6BEEA3053BAEC00872C93 /* Build configuration list for PBXNativeTarget "slox-testing" */;
+			buildPhases = (
+				0CF6BEE23053BAEC00872C93 /* Sources */,
+				0CF6BEE33053BAEC00872C93 /* Frameworks */,
+				0CF6BEE43053BAEC00872C93 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				0CF6BEE73053BAEC00872C93 /* slox-testing */,
+			);
+			name = "slox-testing";
+			packageProductDependencies = (
+			);
+			productName = "slox-testing";
+			productReference = 0CF6BEE63053BAEC00872C93 /* slox-testing.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -93,6 +130,9 @@
 				LastUpgradeCheck = 2630;
 				TargetAttributes = {
 					0CF6BEC03051D4E900872C93 = {
+						CreatedOnToolsVersion = 26.3;
+					};
+					0CF6BEE53053BAEC00872C93 = {
 						CreatedOnToolsVersion = 26.3;
 					};
 				};
@@ -112,12 +152,30 @@
 			projectRoot = "";
 			targets = (
 				0CF6BEC03051D4E900872C93 /* slox */,
+				0CF6BEE53053BAEC00872C93 /* slox-testing */,
 			);
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		0CF6BEE43053BAEC00872C93 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		0CF6BEBD3051D4E900872C93 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0CF6BEE23053BAEC00872C93 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -273,6 +331,42 @@
 			};
 			name = Release;
 		};
+		0CF6BEEB3053BAEC00872C93 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8S96FJ5S6P;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "dummy-org.slox-testing";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		0CF6BEEC3053BAEC00872C93 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8S96FJ5S6P;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "dummy-org.slox-testing";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -290,6 +384,15 @@
 			buildConfigurations = (
 				0CF6BEC93051D4E900872C93 /* Debug */,
 				0CF6BECA3051D4E900872C93 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0CF6BEEA3053BAEC00872C93 /* Build configuration list for PBXNativeTarget "slox-testing" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0CF6BEEB3053BAEC00872C93 /* Debug */,
+				0CF6BEEC3053BAEC00872C93 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
