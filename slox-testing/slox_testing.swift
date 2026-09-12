@@ -6,11 +6,16 @@
 //
 
 import Testing
+@testable import slox
 
-struct slox_testing {
 
-    @Test func example() async throws {
-        // Write your test here and use APIs like `#expect(...)` to check expected conditions.
+@Suite struct slox_testing {
+    
+    @Suite struct LexerTesting {
+        @Test("Create Token") func example(){
+            let user_answer = 10
+            let expected_answer = 10
+            #expect(user_answer == expected_answer)
+        }
     }
-
 }

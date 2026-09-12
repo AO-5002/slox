@@ -9,17 +9,17 @@ class Token {
     let tokenType: TokenType
     let lexeme: String
     let literal: Any?
-    let line: Int
+    let atLine: Int
     
-    init(tokenType: TokenType, lexeme: String, literal: Any? = nil, line: Int) {
+    init(_ tokenType: TokenType, _ lexeme: String, _ literal: Any? = nil, atLine: Int) {
         self.tokenType = tokenType
         self.lexeme = lexeme
         self.literal = literal
-        self.line = line
+        self.atLine = atLine
     }
     
     convenience init() {
-        self.init(tokenType: .IDENTIFIER, lexeme: "", literal: TokenType.ANY, line: 0)
+        self.init(.IDENTIFIER, "", TokenType.ANY, atLine: 0)
     }
 }
 
