@@ -23,6 +23,7 @@ class Scanner {
     
     // HELPER METHODS
     
+    @discardableResult
     private func advance() -> Character {
         // We increment our current counter.
         let c: Character = source[current]
@@ -30,12 +31,12 @@ class Scanner {
         return c
     }
     
-    private func substr(from: Int, to: Int) -> String {
+    private func substr(_ from: Int, to: Int) -> String {
         return String(source[from ... to])
     }
     
     private func addToken(_ type: TokenType, _ literal: Any?) -> Void {
-        let text: String = substr(from: start, to: current - 1)
+        let text: String = substr(start, to: current - 1)
         tokens.append(Token(type, text, literal, atLine: line))
     }
     
@@ -50,9 +51,14 @@ class Scanner {
         return true
     }
     
+    private func peek() -> Character {
+        if(isAtEnd()) {return "\0"}
+        return source[current]
+    }
+    
     // Check if it's a singular lexeme and append it as a token
     private func scanToken() -> Void {
-        var c: Character = advance()
+        let c: Character = advance()
         switch c {
         case "(": addToken(.LEFT_PAREN)
         case ")": addToken(.RIGHT_PAREN)
@@ -68,6 +74,13 @@ class Scanner {
         case "=": addToken(match("=") ? .EQUAL_EQUAL : .EQUAL)
         case "<": addToken(match("=") ? .LESS_EQUAL : .LESS)
         case ">": addToken(match("=") ? .GREATER_EQUAL : .GREATER)
+        case "/":
+            if(match("/")){
+                while(peek() != "\n" && !isAtEnd()) { advance() }
+            }
+            else {
+                addToken(.SLASH)
+            }
         default:
             error("Unexpected Behavior", atLine: line)
         }
@@ -76,6 +89,10 @@ class Scanner {
     // Check if we consumed all of the characters in the source
     private func isAtEnd() -> Bool {
         return self.current >= self.source.count
+    }
+    
+    private func displayTokens(_ tokens: [Token]) -> Void {
+        tokens.forEach { print ("\($0) ") }
     }
     
     // Methods
