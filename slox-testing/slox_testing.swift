@@ -10,7 +10,8 @@ import Testing
 @Suite struct slox_testing {
     
     @Suite struct ScannerTests {
-        // Wrapper method for testing
+        
+        // Wrapper method for scan
         private func scan(_ source: String) -> [Token] {
             Scanner(source: Array(source)).scanTokens()
         }
@@ -35,6 +36,23 @@ import Testing
             #expect(tokens.map(\.tokenType) == [expected, .EOF])
         }
         
+        @Test("Ignore whitespace") func scanWhileIgnoringWhitespace() {
+            let tokens = scan("""
+            // this is a comment
+            // more comment
+            """)
+            
+            #expect(tokens.map(\.tokenType) == [.EOF])
+        }
         
+        @Test("Create String") func scanCreateString() {
+            let tokens = scan("\"Hello, World!\"")
+            #expect(tokens.map(\.tokenType) == [.STRING, .EOF])
+        }
+        
+        @Test("Create Double values") func scanCreateDouble() {
+            let tokens = scan("5.43")
+            #expect(tokens.map(\.tokenType) == [.NUMBER, .EOF])
+        }
     }
 }

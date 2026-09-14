@@ -32,11 +32,11 @@ class Scanner {
     }
     
     private func substr(_ from: Int, to: Int) -> String {
-        return String(source[from ... to])
+        return String(source[from ..< to])
     }
     
     private func addToken(_ type: TokenType, _ literal: Any?) -> Void {
-        let text: String = substr(start, to: current - 1)
+        let text: String = substr(start, to: current)
         tokens.append(Token(type, text, literal, atLine: line))
     }
     
@@ -44,16 +44,63 @@ class Scanner {
         addToken(type, nil)
     }
     
+    // Check if we consumed all of the characters in the source
+    private func isAtEnd() -> Bool {
+        return self.current >= self.source.count
+    }
+    
+    private func displayTokens(_ tokens: [Token]) -> Void {
+        tokens.forEach { print ("\($0) ") }
+    }
+    
     private func match(_ c: Character) -> Bool {
-        if(isAtEnd()) {return false}
+        if(isAtEnd()) { return false }
         if(source[current] != c) { return false }
         current += 1
         return true
     }
     
     private func peek() -> Character {
-        if(isAtEnd()) {return "\0"}
+        if(isAtEnd()) { return "\0" }
         return source[current]
+    }
+    
+    private func peek(offset: Int) -> Character {
+        if isAtEnd() || current + offset > source.count - 1 { return "\0" }
+        return source[current + offset]
+    }
+    
+    private func string() -> Void {
+        while peek() != "\"" && !isAtEnd() {
+            if peek() == "\n" { line += 1}
+            advance()
+        }
+        
+        if isAtEnd() {
+            error("Unterminated String.", atLine: line)
+            return
+        }
+        
+        // The closing quote (").
+        advance()
+        
+        // Trim surrounding quotes to get the actual string contents.
+        let value: String = substr(start + 1, to: current - 1)
+        addToken(.STRING, value)
+    }
+    
+    private func isDigit(_ c: Character) -> Bool {
+        return c <= "9" && c >= "0"
+    }
+    
+    private func Digit() -> Void {
+        while isDigit(peek()) && !isAtEnd() { advance() }
+        if peek() == "." && isDigit(peek(offset: 1)) {
+            advance()
+            while (isDigit(peek())) { advance() }
+        }
+        
+        addToken(.NUMBER, Double(substr(start, to: current)))
     }
     
     // Check if it's a singular lexeme and append it as a token
@@ -74,6 +121,7 @@ class Scanner {
         case "=": addToken(match("=") ? .EQUAL_EQUAL : .EQUAL)
         case "<": addToken(match("=") ? .LESS_EQUAL : .LESS)
         case ">": addToken(match("=") ? .GREATER_EQUAL : .GREATER)
+        case "\"": string()
         case "/":
             if(match("/")){
                 while(peek() != "\n" && !isAtEnd()) { advance() }
@@ -81,18 +129,17 @@ class Scanner {
             else {
                 addToken(.SLASH)
             }
+        case " ", "\r", "\t":
+            break
+        case "\n":
+            line += 1
+            break
         default:
-            error("Unexpected Behavior", atLine: line)
+            if isDigit(c) {
+                Digit()
+            }
+            else { error("Unexpected Behavior", atLine: line) }
         }
-    }
-    
-    // Check if we consumed all of the characters in the source
-    private func isAtEnd() -> Bool {
-        return self.current >= self.source.count
-    }
-    
-    private func displayTokens(_ tokens: [Token]) -> Void {
-        tokens.forEach { print ("\($0) ") }
     }
     
     // Methods
